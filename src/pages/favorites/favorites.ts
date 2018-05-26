@@ -26,6 +26,20 @@ export class FavoritesPage {
     });
 
     modal.present();
+    modal.onDidDismiss((remove: boolean) => {
+      if (remove) {
+        this.onRemoveFromFavorites(quote);
+      }
+    })
+  }
+
+  onRemoveFromFavorites(quote: Quote) {
+    this.quoteService.removeQuoteFromFavorites(quote);
+    //this.quotes = this.quoteService.getFavoriteQuotes();
+    const position = this.quotes.findIndex((quoteEl: Quote) => {
+      return quoteEl.id == quote.id;
+    })
+    this.quotes.splice(position, 1);
   }
 
 }
